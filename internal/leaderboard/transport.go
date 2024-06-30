@@ -4,6 +4,7 @@ package leaderboard
 import (
 	"context"
 	"encoding/json"
+	"log"
 	"net/http"
 
 	httptransport "github.com/go-kit/kit/transport/http"
@@ -32,6 +33,7 @@ func MakeHTTPHandler(endpoints Endpoints) http.Handler {
 func DecodeSubmitScoreRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var req SubmitScoreRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		log.Printf("Error decoding SubmitScoreRequest: %v", err)
 		return nil, err
 	}
 	return req, nil
@@ -40,6 +42,7 @@ func DecodeSubmitScoreRequest(_ context.Context, r *http.Request) (interface{}, 
 func DecodeGetRankRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var req GetRankRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		log.Printf("Error decoding GetRankRequest: %v", err)
 		return nil, err
 	}
 	return req, nil
@@ -48,11 +51,16 @@ func DecodeGetRankRequest(_ context.Context, r *http.Request) (interface{}, erro
 func DecodeListTopNRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var req ListTopNRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		log.Printf("Error decoding ListTopNRequest: %v", err)
 		return nil, err
 	}
 	return req, nil
 }
 
 func EncodeResponse(_ context.Context, w http.ResponseWriter, response interface{}) error {
-	return json.NewEncoder(w).Encode(response)
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		log.Printf("Error encoding response: %v", err)
+		return err
+	}
+	return nil
 }

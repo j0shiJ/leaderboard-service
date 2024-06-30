@@ -3,6 +3,7 @@ package leaderboard
 
 import (
 	"context"
+	"log"
 
 	"gorm.io/gorm"
 )
@@ -22,7 +23,11 @@ func NewLeaderboardService(db *gorm.DB) LeaderboardService {
 }
 
 func (s *leaderboardService) SubmitScore(ctx context.Context, user User) error {
-	return s.db.Create(&user).Error
+	if err := s.db.Create(&user).Error; err != nil {
+		log.Printf("Error in SubmitScore: %v", err)
+		return err
+	}
+	return nil
 }
 
 func (s *leaderboardService) GetRank(ctx context.Context, userName, scope string) (int, error) {
@@ -30,8 +35,8 @@ func (s *leaderboardService) GetRank(ctx context.Context, userName, scope string
 	var user User
 	var err error
 
-	err = s.db.Where("user_name = ?", userName).First(&user).Error
-	if err != nil {
+	if err = s.db.Where("user_name = ?", userName).First(&user).Error; err != nil {
+		log.Printf("Error finding user in GetRank: %v", err)
 		return 0, err
 	}
 
@@ -45,6 +50,7 @@ func (s *leaderboardService) GetRank(ctx context.Context, userName, scope string
 	}
 
 	if err != nil {
+		log.Printf("Error fetching users in GetRank: %v", err)
 		return 0, err
 	}
 
@@ -68,6 +74,10 @@ func (s *leaderboardService) ListTopN(ctx context.Context, n int, scope, country
 		err = s.db.Order("score desc").Where("country = ?", country).Limit(n).Find(&users).Error
 	case "state":
 		err = s.db.Order("score desc").Where("state = ?", state).Limit(n).Find(&users).Error
+	}
+
+	if err != nil {
+		log.Printf("Error fetching top N users in ListTopN: %v", err)
 	}
 
 	return users, err
