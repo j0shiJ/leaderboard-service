@@ -13,23 +13,23 @@ func MakeHTTPHandler(endpoints Endpoints) http.Handler {
 	r := http.NewServeMux()
 	r.Handle("/submit", httptransport.NewServer(
 		endpoints.SubmitScoreEndpoint,
-		decodeSubmitScoreRequest,
-		encodeResponse,
+		DecodeSubmitScoreRequest,
+		EncodeResponse,
 	))
 	r.Handle("/get_rank", httptransport.NewServer(
 		endpoints.GetRankEndpoint,
-		decodeGetRankRequest,
-		encodeResponse,
+		DecodeGetRankRequest,
+		EncodeResponse,
 	))
 	r.Handle("/list_top_n", httptransport.NewServer(
 		endpoints.ListTopNEndpoint,
-		decodeListTopNRequest,
-		encodeResponse,
+		DecodeListTopNRequest,
+		EncodeResponse,
 	))
 	return r
 }
 
-func decodeSubmitScoreRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func DecodeSubmitScoreRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var req SubmitScoreRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, err
@@ -37,7 +37,7 @@ func decodeSubmitScoreRequest(_ context.Context, r *http.Request) (interface{}, 
 	return req, nil
 }
 
-func decodeGetRankRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func DecodeGetRankRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var req GetRankRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, err
@@ -45,7 +45,7 @@ func decodeGetRankRequest(_ context.Context, r *http.Request) (interface{}, erro
 	return req, nil
 }
 
-func decodeListTopNRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func DecodeListTopNRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var req ListTopNRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, err
@@ -53,6 +53,6 @@ func decodeListTopNRequest(_ context.Context, r *http.Request) (interface{}, err
 	return req, nil
 }
 
-func encodeResponse(_ context.Context, w http.ResponseWriter, response interface{}) error {
+func EncodeResponse(_ context.Context, w http.ResponseWriter, response interface{}) error {
 	return json.NewEncoder(w).Encode(response)
 }
