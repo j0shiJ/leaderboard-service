@@ -67,14 +67,10 @@ List Top N Scores:
 
 ## Screenshots
 
-![Screenshot 1](Screenshots/Screenshot 2024-07-01 at 11.22.59 PM.png)
-*Swagger Documentation*
-
-![Screenshot 2](Screenshots/Screenshot 2024-07-01 at 3.06.27 PM.png)
-*PostgreSQL db*
-
-![Screenshot 3](Screenshots/Screenshot 2024-07-01 at 3.02.31 PM.png)
-*Postman*
+<p align="center">
+  <img src="Screenshots/Screenshot 2024-07-01 at 11.22.59 PM.png" width="350" title="Swagger Documentation">
+  <img src="Screenshots/Screenshot 2024-07-01 at 3.06.27 PM.png" width="350" alt="PostgreSQL db">
+</p>
 
 
 
