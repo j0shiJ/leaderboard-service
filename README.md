@@ -83,7 +83,7 @@ List Top N Scores:
 
 <h3>Postman documentation</h3>
 <p align="center">
-  <img src="Screenshots/Screenshot 2024-07-01 at 3.02.31 PM.png" width="400" height ="400" title="PostgreSQL db">
+  <img src="Screenshots/Screenshot 2024-07-01 at 3.02.31 PM.png" width="650" height ="400" title="PostgreSQL db">
   
 </p>
 
