@@ -63,7 +63,18 @@ List Top N Scores:
 - Method: GET
 - Query Parameters: n, category (state, country, globally)
 
+## Screen showing working project
 
+## Screenshots
+
+![Screenshot 1](Screenshots/Screenshot 2024-07-01 at 11.22.59 PM.png)
+*Swagger Documentation*
+
+![Screenshot 2](Screenshots/Screenshot 2024-07-01 at 3.06.27 PM.png)
+*PostgreSQL db*
+
+![Screenshot 3](Screenshots/Screenshot 2024-07-01 at 3.02.31 PM.png)
+*Postman*
 
 
 
