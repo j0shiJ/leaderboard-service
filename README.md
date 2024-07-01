@@ -66,13 +66,19 @@ List Top N Scores:
 ## Screen showing working project
 
 ## Screenshots
-
+<h2>Swagger documentation</h2>
 <p align="center">
   <img src="Screenshots/Screenshot 2024-07-01 at 11.22.59 PM.png" width="350" title="Swagger Documentation">
-  <img src="Screenshots/Screenshot 2024-07-01 at 3.06.27 PM.png" width="350" alt="PostgreSQL db">
+  
 </p>
 
+<br>
 
+<h2>Swagger documentation</h2>
+<p align="center">
+  <img src="Screenshots/Screenshot 2024-07-01 at 3.06.27 PM.png" width="350" title="PostgreSQL db">
+  
+</p>
 
 
 
