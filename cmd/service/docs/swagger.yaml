@@ -1,9 +1,113 @@
-basePath: /
-host: localhost:8080
+swagger: "2.0"
 info:
-  contact: {}
   description: This is a leaderboard service API.
   title: Leaderboard API
   version: "1.0"
-paths: {}
-swagger: "2.0"
+host: localhost:8080
+basePath: /
+schemes:
+  - http
+paths:
+  /submit:
+    post:
+      summary: Submit score
+      description: Submit a new score for the user
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User data
+          required: true
+          schema:
+            $ref: "#/definitions/SubmitRequest"
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/SubmitResponse"
+  /get_rank:
+    get:
+      summary: Get rank
+      description: Fetch the rank of a user
+      parameters:
+        - in: query
+          name: user_name
+          required: true
+          type: string
+        - in: query
+          name: scope
+          description: Ranking scope (state, country, global)
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/RankResponse"
+  /list_top_n:
+    get:
+      summary: List top N
+      description: Fetch the top N ranks
+      parameters:
+        - in: query
+          name: n
+          description: Number of top ranks to fetch
+          required: true
+          type: integer
+        - in: query
+          name: scope
+          description: Ranking scope (state, country, global)
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/TopNResponse"
+definitions:
+  SubmitRequest:
+    type: object
+    properties:
+      user_name:
+        type: string
+      country:
+        type: string
+      state:
+        type: string
+      score:
+        type: number
+        format: float
+  SubmitResponse:
+    type: object
+    properties:
+      status:
+        type: string
+      message:
+        type: string
+  RankResponse:
+    type: object
+    properties:
+      user_name:
+        type: string
+      rank:
+        type: integer
+      scope:
+        type: string
+  TopNResponse:
+    type: object
+    properties:
+      top_n:
+        type: array
+        items:
+          type: object
+          properties:
+            user_name:
+              type: string
+            rank:
+              type: integer
+            score:
+              type: number
+              format: float
