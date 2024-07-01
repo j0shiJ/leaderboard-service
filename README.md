@@ -67,7 +67,7 @@ List Top N Scores:
 
 <h3>Swagger documentation</h3>
 <p align="center">
-  <img src="Screenshots/Screenshot 2024-07-01 at 11.22.59 PM.png" width="400" height ="400" title="Swagger Documentation">
+  <img src="Screenshots/Screenshot 2024-07-01 at 11.22.59 PM.png" width="400" height ="550" title="Swagger Documentation">
   
 </p>
 
@@ -78,6 +78,16 @@ List Top N Scores:
   <img src="Screenshots/Screenshot 2024-07-01 at 3.06.27 PM.png" width="400" height ="400" title="PostgreSQL db">
   
 </p>
+
+<br>
+
+<h3>Postman documentation</h3>
+<p align="center">
+  <img src="Screenshots/Screenshot 2024-07-01 at 3.02.31 PM.png" width="400" height ="400" title="PostgreSQL db">
+  
+</p>
+
+
 
 
 
