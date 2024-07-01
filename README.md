@@ -67,7 +67,7 @@ List Top N Scores:
 
 <h3>Swagger documentation</h3>
 <p align="center">
-  <img src="Screenshots/Screenshot 2024-07-01 at 11.22.59 PM.png" width="400" height ="550" title="Swagger Documentation">
+  <img src="Screenshots/Screenshot 2024-07-01 at 11.22.59 PM.png" width="600" height ="550" title="Swagger Documentation">
   
 </p>
 
