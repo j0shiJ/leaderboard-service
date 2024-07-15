@@ -10,8 +10,8 @@ import (
 
 type LeaderboardService interface {
 	SubmitScore(ctx context.Context, user User) error
-	GetRank(ctx context.Context, userName, scope string) (int, error)
-	ListTopN(ctx context.Context, n int, scope, country, state string) ([]User, error)
+	GetRank(ctx context.Context, userName, scope string, game string) (int, error)
+	ListTopN(ctx context.Context, n int, scope, country, state string, game string) ([]User, error)
 }
 
 type leaderboardService struct {
@@ -30,7 +30,7 @@ func (s *leaderboardService) SubmitScore(ctx context.Context, user User) error {
 	return nil
 }
 
-func (s *leaderboardService) GetRank(ctx context.Context, userName, scope string) (int, error) {
+func (s *leaderboardService) GetRank(ctx context.Context, userName, scope string, game string) (int, error) {
 	var users []User
 	var user User
 	var err error
@@ -42,11 +42,11 @@ func (s *leaderboardService) GetRank(ctx context.Context, userName, scope string
 
 	switch scope {
 	case "global":
-		err = s.db.Order("score desc").Find(&users).Error
+		err = s.db.Order("score desc").Where("game = ?", user.Game).Find(&users).Error
 	case "country":
-		err = s.db.Order("score desc").Where("country = ?", user.Country).Find(&users).Error
+		err = s.db.Order("score desc").Where("country = ?", user.Country).Where("game = ?", user.Game).Find(&users).Error
 	case "state":
-		err = s.db.Order("score desc").Where("state = ?", user.State).Find(&users).Error
+		err = s.db.Order("score desc").Where("state = ?", user.State).Where("game = ?", user.Game).Find(&users).Error
 	}
 
 	if err != nil {
@@ -63,13 +63,13 @@ func (s *leaderboardService) GetRank(ctx context.Context, userName, scope string
 	return 0, nil
 }
 
-func (s *leaderboardService) ListTopN(ctx context.Context, n int, scope, country, state string) ([]User, error) {
+func (s *leaderboardService) ListTopN(ctx context.Context, n int, scope, country, state string, game string) ([]User, error) {
 	var users []User
 	var err error
-
+	var user User
 	switch scope {
 	case "global":
-		err = s.db.Order("score desc").Limit(n).Find(&users).Error
+		err = s.db.Order("score desc").Where("game = ?", user.Game).Limit(n).Find(&users).Error
 	case "country":
 		err = s.db.Order("score desc").Where("country = ?", country).Limit(n).Find(&users).Error
 	case "state":

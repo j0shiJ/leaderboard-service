@@ -35,7 +35,7 @@ func makeSubmitScoreEndpoint(s LeaderboardService) endpoint.Endpoint {
 func makeGetRankEndpoint(s LeaderboardService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(GetRankRequest)
-		rank, err := s.GetRank(ctx, req.UserName, req.Scope)
+		rank, err := s.GetRank(ctx, req.UserName, req.Scope, req.Game)
 		if err != nil {
 			return GetRankResponse{Rank: 0, Err: err.Error()}, nil
 		}
@@ -46,7 +46,7 @@ func makeGetRankEndpoint(s LeaderboardService) endpoint.Endpoint {
 func makeListTopNEndpoint(s LeaderboardService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(ListTopNRequest)
-		users, err := s.ListTopN(ctx, req.N, req.Scope, req.Country, req.State)
+		users, err := s.ListTopN(ctx, req.N, req.Scope, req.Country, req.State, req.Game)
 		if err != nil {
 			return ListTopNResponse{Users: nil, Err: err.Error()}, nil
 		}
@@ -65,6 +65,7 @@ type SubmitScoreResponse struct {
 type GetRankRequest struct {
 	UserName string
 	Scope    string
+	Game     string
 }
 
 type GetRankResponse struct {
@@ -77,6 +78,7 @@ type ListTopNRequest struct {
 	Scope   string
 	Country string
 	State   string
+	Game    string
 }
 
 type ListTopNResponse struct {
